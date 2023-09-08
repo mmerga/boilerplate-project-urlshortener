@@ -2,10 +2,6 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const app = express();
-const crypto = require('crypto');
-const bodyParser = require('body-parser');
-
-app.use(bodyParser.urlencoded({extended: false}));
 
 // Basic Configuration
 const port = process.env.PORT || 3000;
@@ -27,10 +23,17 @@ app.listen(port, function() {
   console.log(`Listening on port ${port}`);
 });
 /////////////////////////////////////////////////////////
+const crypto = require('crypto');
+const bodyParser = require('body-parser');
+
+app.use(bodyParser.urlencoded({extended: false}));
+
 const mongoose = require('mongoose');
+
 mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 
 const Schema = mongoose.Schema;
+
 const urlSchema = new Schema({
   "original_url": { type: String, required: true },
   "short_url": { type: String, required: true }
